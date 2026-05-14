@@ -30,13 +30,13 @@
             books.Add(book);
         }
 
-        public Book SearchBook(string title, string author) 
+        public Book SearchBook(string keyword) 
         {
             Book book = null;
 
             for (int i = 0; i < books.Count; i++)
             {
-                if (books[i].title == title || books[i].author == author) 
+                if (books[i].title == keyword || books[i].author == keyword || books[i].ISBN == keyword) 
                 {
                     book = books[i];
                     break;
@@ -46,9 +46,9 @@
             return book;
         }
 
-        public string BorrowBook(string title, string author)
+        public string BorrowBook(string keyword)
         {
-            Book book = SearchBook(title, author); 
+            Book book = SearchBook(keyword);
 
             if (book == null)                      
                 return "Book not found.";
@@ -60,9 +60,9 @@
             return $"You have successfully borrowed '{book.title}' by {book.author}.";
         }
 
-        public string ReturnBook(string title, string author) 
+        public string ReturnBook(string keyword) 
         {
-            Book book = SearchBook(title, author);
+            Book book = SearchBook(keyword);
 
             if (book == null)
                 return "Book not found.";
@@ -84,9 +84,27 @@
             library.AddBook(new Book("Book A", "Ali", "123"));
             library.AddBook(new Book("Book B", "Mona", "456"));
 
-            Console.WriteLine(library.BorrowBook("Book A", "Ali"));
-            Console.WriteLine(library.ReturnBook("Book A", "Ali"));
-            Console.WriteLine(library.BorrowBook("Book B", "Mona"));
+            
+            Console.Write("Enter Title or Author to search: ");
+            string keyword = Console.ReadLine();
+            Book book = library.SearchBook(keyword);
+
+            if (book == null)
+                Console.WriteLine("Book not found.");
+            else
+                Console.WriteLine(book.title + " by " + book.author);
+
+           
+            Console.Write("\nEnter Title or Author to borrow: ");
+            string borrowKey = Console.ReadLine();
+
+            Console.WriteLine(library.BorrowBook(borrowKey));
+
+            
+            Console.Write("\nEnter Title or Author to return: ");
+            string returnKey = Console.ReadLine();
+
+            Console.WriteLine(library.ReturnBook(returnKey));
         }
     }
 }
