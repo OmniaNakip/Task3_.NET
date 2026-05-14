@@ -14,3 +14,9 @@ class Student { }
 struct Point { }
 
 record Person(string Name);
+### when to use:
+Class: object بيتغير وعنده behavior  (BankAccount, Library)
+
+Struct: data صغيرة مفيش inheritance  (Point, Color)
+
+Record: بس بتنقل data مش بتغير فيها (API Response, Config)
